@@ -5,7 +5,7 @@ use std::{
 
 use rand::{Rng, SeedableRng};
 
-fn random_ident() -> String {
+fn random_ident() -> ([u8; 16], String) {
     static CALL_COUNT: AtomicUsize = AtomicUsize::new(0);
 
     let secs = SystemTime::now()
@@ -25,7 +25,7 @@ fn random_ident() -> String {
     }
 
     let mut rng = rand::rngs::SmallRng::from_seed(seed);
-    (0..16)
+    (seed, (0..16)
         .map(|i| {
             if i == 0 || rng.gen() {
                 ('a' as u8 + rng.gen::<u8>() % 25) as char
@@ -33,10 +33,10 @@ fn random_ident() -> String {
                 ('0' as u8 + rng.gen::<u8>() % 10) as char
             }
         })
-        .collect::<String>()
+        .collect::<String>())
 }
 
 fn main() {
-    println!("{}", random_ident());
-    println!("{}", random_ident());
+    println!("{:?}", random_ident());
+    println!("{:?}", random_ident());
 }
