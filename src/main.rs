@@ -39,4 +39,5 @@ fn random_ident() -> ([u8; 16], String) {
 fn main() {
     println!("{:?}", random_ident());
     println!("{:?}", random_ident());
+    println!("{:?}", random_ident());
 }
